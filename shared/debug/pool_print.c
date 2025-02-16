@@ -6,7 +6,7 @@
 /*   By: fparreir <fparreir@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 10:22:15 by fparreir          #+#    #+#             */
-/*   Updated: 2024/11/19 22:05:08 by fparreir         ###   ########.fr       */
+/*   Updated: 2024/11/20 15:38:26 by fparreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,10 @@ void	print_pool_table(t_pool *pool) {
 
 	ft_printf("%s\n", get_pool_middle_line(162, false));
 
-	ft_printf("%s Chunk ptr: %p %s ",
+	ft_printf("%s Chunk ptr: %p%s %s ",
 			  BORDER_MATRIX[10],
 			  pool->chunks,
+			  add_padding(9, pool->chunks),
 			  BORDER_MATRIX[10]);
 	ft_printf("Pg Size: %zu %s %s\n",
 			  pool->total,
@@ -69,9 +70,9 @@ void	print_pool_table(t_pool *pool) {
 	ft_printf("%s Unmapped: %s%p",
 			  BORDER_MATRIX[10],
 			  add_padding(1, 0),
-			  pool->unmapped);
+			  pool->block_end);
 	ft_printf("%s %s\n",
-			  add_padding(pool->unmapped ? 22 : 34, pool->unmapped),
+			  add_padding(pool->block_end ? 25 : 34, 0),
 			  BORDER_MATRIX[10]);
 	ft_printf("%s\n", get_pool_bottom_line(162));
 }

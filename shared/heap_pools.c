@@ -37,10 +37,7 @@ static void	initialize_small_pool() {
 static void	initialize_large_pool() {
 	LARGE_POOL.group = LARGE;
 	LARGE_POOL.total = 0;  // Will grow as needed
-	LARGE_POOL.free_bytes = 0;
 	LARGE_POOL.block_count = 0;
-	LARGE_POOL.data = NULL;
-	LARGE_POOL.chunks = NULL;
 	LARGE_POOL.first = NULL;
 	LARGE_POOL.last = NULL;
 }

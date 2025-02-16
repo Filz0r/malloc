@@ -31,8 +31,8 @@ TEST_SOURCES = $(addprefix $(TEST_DIR)/, $(TEST_SRC))
 TEST_OBJ = $(addprefix $(OBJDIR)/, $(TEST_SRC:.c=.o))
 
 
-#all: $(NAME)
-all: test
+all: $(NAME)
+#all: test
 
 $(NAME): $(OBJECTS)
 	@echo "Creating shared library"
@@ -77,6 +77,6 @@ $(OBJDIR)/%.o: $(TEST_DIR)/%.c
 test: $(NAME) $(TEST_OBJ)
 	@echo "Compiling test executable and running it"
 	@$(CC) $(CFLAGS) -o malloc_test $(TEST_OBJ) $(NAME) $(INCLUDE_FLAGS)
-	@LD_LIBRARY_PATH=.:$LD_LIBRARY_PATH LD_PRELOAD=./$(NAME) ./malloc_test
+	@LD_LIBRARY_PATH=.:$LD_LIBRARY_PATH LD_PRELOAD=./$(NAME) ./malloc_test # &> test.log
 
 .PHONY: all clean fclean re test debug

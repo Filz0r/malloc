@@ -6,7 +6,7 @@
 /*   By: fparreir <fparreir@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 10:12:13 by fparreir          #+#    #+#             */
-/*   Updated: 2024/11/19 22:11:51 by fparreir         ###   ########.fr       */
+/*   Updated: 2024/11/20 11:51:14 by fparreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@
 
 char	*convert_size_to_unit(size_t size) {
 	static char buffer[8];
-	const char *units[] = {"B", "KB", "MB", "GB", "TB"};
+	const char *units[] = {"B", "KiB", "MiB", "GiB", "TiB"};
 	size_t unit_index = 0;
 	double display_size = (double)size;
 
-	while (display_size >= 1000 && unit_index < 4) {
-		display_size /= 1000;
+	while (display_size >= 1024 && unit_index < 4) {
+		display_size /= 1024;
 		unit_index++;
 	}
 
@@ -44,7 +44,7 @@ char	*convert_size_to_unit(size_t size) {
 		buffer[pos++] = '0' + ((int_part / 10) % 10);
 		buffer[pos++] = '0' + (int_part % 10);
 	}
-	buffer[pos++] = ' ';
+//	buffer[pos++] = ' ';
 	for (int i = 0; units[unit_index][i] != '\0'; i++) {
 		buffer[pos++] = units[unit_index][i];
 	}

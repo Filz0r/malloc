@@ -6,13 +6,12 @@
 /*   By: fparreir <fparreir@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 16:14:29 by fparreir          #+#    #+#             */
-/*   Updated: 2024/11/18 14:29:56 by fparreir         ###   ########.fr       */
+/*   Updated: 2024/11/21 16:18:45 by fparreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <malloc.h>
 #include <priv_malloc.h>
-
 
 static void	debug_alloc(size_t size, t_heap_group group, t_pool *pool, void *ptr) {
 	size_t aligned_size = align_up(size);
@@ -41,22 +40,15 @@ void *malloc(size_t size) {
 	pthread_mutex_lock(&lock);
 	pool_initialization();
 	t_heap_group group = get_pool_group(size);
-	// Calculate sizes
-	size_t aligned_size = align_up(size);
-	size_t total_size = align_up(sizeof(t_block) + aligned_size);
 	t_pool *pool = find_pool(size, group);
-	void *user_ptr = find_next_block(pool, (t_sizes){total_size, aligned_size});
+
+	void *user_ptr = NULL;
+	user_ptr = find_next_block(pool, size);
+	if (!user_ptr) {
+		pthread_mutex_unlock(&lock);
+		return NULL;
+	}
 //	debug_alloc(size, group, pool, user_ptr);
 	pthread_mutex_unlock(&lock);
 	return user_ptr;
 }
-
-//void	*malloc(size_t size) {
-//	pthread_mutex_lock(&lock);
-//	pool_initialization();
-//	ft_printf("malloc: |%u|\n", size);
-//	ft_printf("page_size: |%d|\n", heap.page_size);
-//	ft_printf("TINY_page_size: |%d|\n", TINY_POOL.total);
-//	pthread_mutex_unlock(&lock);
-//	return (0x0);
-//}
